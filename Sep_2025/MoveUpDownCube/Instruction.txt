@@ -1,0 +1,47 @@
+*** By Pejman _ September 2025 ***
+
+UE5 Tutorial: Make any mesh float up/down in a loop and rotate
+
+1) Create the Actor
+File → New C++/Blueprint Class → Actor → name it BP_FloatingActor.
+Open it and add a Static Mesh component.
+Assign any mesh (Cube, Sphere, your own). This will be the moving piece.
+
+2) Add rotation (always spinning)
+In the Components panel, Add → Rotating Movement.
+In Details → Rotation Rate, set Z = 50.0 (X=0, Y=0). The actor will spin around Z.
+
+3) Create the Timeline
+In the Components or My Blueprint panel, Add → Timeline. Name it FloatingObject.
+Double‑click the Timeline to open it.
+Click “+ Track” → Vector Track → name it NewTrack_0.
+We only need Z:
+Add key at Time = 0.0, Z = 0.0 (X=0, Y=0, Z=0).
+Add key at Time = 5.0, Z = 10.0 (X=0, Y=0, Z=10).
+Set Length = 5.0 seconds.
+Optional loop styles:
+To ping‑pong (up then down then up…): enable Use Last Keyframe? off, and in Blueprint we’ll connect Play/Reverse on Finished. Or
+To simple loop: tick Loop (it will reset to Z=0 after reaching Z=10).
+Close the Timeline tab.
+
+4) Blueprint wiring (Event Graph)
+Event BeginPlay → drag the FloatingObject Timeline into the graph → call Play.
+From the FloatingObject node’s Update pin:
+Drag from the NewTrack_0 output (Vector) into “Set Relative Location.”
+Target = your Static Mesh component.
+Leave Sweep/Teleport defaults.
+For ping‑pong motion:
+From Finished pin → call Reverse.
+From Reverse’s Finished → call Play. (This makes it go up, then down, forever.)
+For simple looping instead of ping‑pong:
+Just check Loop on the Timeline and don’t wire Reverse.
+
+5) Test
+Place BP_FloatingActor in your level.
+Press Play: the mesh should rise from Z=0 to Z=10 over 5 seconds, then return (ping‑pong) or restart (loop), while continuously rotating at 50 deg/sec.
+
+6) Customize
+Change Z key values to control height (e.g., 0 → 75).
+Change Timeline Length to control speed.
+Edit Rotation Rate (Rotating Movement) for faster/slower spin or rotate on other axes.
+Swap the Static Mesh to use any other mesh without changing the logic.

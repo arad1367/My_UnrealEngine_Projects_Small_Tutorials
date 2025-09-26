@@ -1,0 +1,3 @@
+When you Add Actor, you’re creating a new Actor in the level. Any meshes inside that Actor’s hierarchy move together as one, because the Actor is the parent.
+
+When you Add Component (inside an existing Actor), each mesh is its own component. You can transform or move each component independently without affecting the other meshes in the Actor.

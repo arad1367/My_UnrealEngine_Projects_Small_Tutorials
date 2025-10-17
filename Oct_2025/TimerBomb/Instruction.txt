@@ -1,0 +1,94 @@
+🎯 Project: Time Bomb in UE5
+📁 Location
+
+Content → Items → BombC4
+
+We will create a Blueprint class (BP_Bomb) to control the bomb functionality.
+
+
+🧱 Step 1: Create the Bomb Blueprint
+
+Right-click in Content Browser → Blueprint Class → Actor
+
+Name it BP_Bomb
+
+Open BP_Bomb
+
+
+🧩 Step 2: Add Components
+
+Add a Static Mesh component → assign the BombC4 mesh
+
+Adjust size and position as needed
+
+(Optional) Add a Sphere component → scale it to (0.01, 0.01, 0.01) (for light effect later)
+
+
+⚙️ Step 3: Add Explosion Logic (Event Graph)
+
+Go to Event Graph
+
+Add nodes in sequence:
+
+Event BeginPlay
+
+PlaySound2D (for bomb activation sound)
+
+Delay (10 seconds)
+
+PlaySound2D (for explosion sound)
+
+Spawn Emitter at Location
+
+Use Get Actor Location for the emitter location
+
+Choose an explosion template (e.g., P_Explosion or similar)
+
+Adjust Scale of explosion if needed
+
+Destroy Actor (to remove bomb after explosion)
+
+✅ Result: The bomb explodes automatically after 10 seconds.
+
+
+💡 Step 4: Add Flashing Light Effect
+
+Add a Sphere Component (acts as emissive light)
+
+Create a new Material → name it M_RedLight
+
+Press 3 + Left Click to create a Vector Parameter (for color)
+
+Press 1 + Left Click to create a Constant (for intensity)
+
+Connect nodes to Emissive Color
+
+Apply M_RedLight to the Sphere
+
+
+⏱ Step 5: Add Timer for Flashing Light
+
+Use Set Timer by Event
+
+Make the light flash (toggle visibility or change color every tick)
+
+For the last 2 seconds before explosion:
+
+Use Clear and Invalidate Timer by Handle
+
+Change the light to flash faster or brighter for a more dramatic effect
+
+
+✅ Final Behavior
+
+Bomb plays an activation sound when placed.
+
+After 10 seconds:
+
+Explosion sound + particle effect.
+
+Bomb is destroyed.
+
+During countdown:
+
+Red light flashes slowly, then rapidly before explosion.

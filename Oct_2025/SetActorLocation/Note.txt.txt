@@ -1,0 +1,2 @@
+set actor location: move all components like sphere, triangle, cube together
+set component location : move specific item like cube

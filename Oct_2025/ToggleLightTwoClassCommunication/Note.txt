@@ -1,0 +1,17 @@
+Short Note – Communication Between BP_Test and PointLight
+
+Create a PointLight in the level.
+
+In BP_Test (first class just with a cube inside), add a variable named PointLight → type: PointLight (Object Reference) → make it Instance Editable and Expose on Spawn.
+
+In BP_Test, use this variable to toggle light visibility (e.g., Toggle Visibility or Set Visibility).
+
+In general:
+
+When Class A needs to affect Class B, create a variable in A of type B (Object Reference).
+
+Assign the reference in the Level/PIE.
+
+Trigger the desired event (e.g., on Hit, call function on B).
+
+If it doesn’t work, add a small Delay (1s) before triggering.

@@ -1,0 +1,1 @@
+Consider casting when you have a Class and want to talk with another class.
